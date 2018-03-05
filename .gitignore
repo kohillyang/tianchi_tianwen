@@ -112,3 +112,7 @@ result/
 *.txt
 *.pth
 *.pkl
+
+\.project
+
+\.pydevproject
