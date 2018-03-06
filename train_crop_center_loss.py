@@ -128,19 +128,20 @@ print 'dataset: %d,%d'%(len(data_set['train']), len(data_set['val']))
 
 
 # model prepare
-resume = None
+resume = "/home/kohill/Desktop/tianchi/tianwen/output/xception_centerloss/weights-35-10500-[0.8096].pth"
 model = xception(num_classes=4)
 
 model = torch.nn.DataParallel(model)
 if resume:
     print('resuming finetune from %s'%resume)
+    logging.info('resuming finetune from %s'%resume)
     model.load_state_dict(torch.load(resume))
 
 model = model.cuda()
 
 
 
-optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9, weight_decay=1e-5)
+optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9, weight_decay=1e-5)
 criterion = CrossEntropyLoss()
 exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.5)
 
@@ -154,7 +155,7 @@ trainlog(logfile)
 #############something for center loss
 nllloss = nn.NLLLoss().cuda()
 center_loss = CenterLoss(4,256,1.0).cuda()
-optimizer_center_loss = optim.SGD(center_loss.parameters(), lr =0.5)
+optimizer_center_loss = optim.SGD(center_loss.parameters(), lr =0.05)
 #############
 best_acc,best_model_wts = train(model,
                                 epoch_num,

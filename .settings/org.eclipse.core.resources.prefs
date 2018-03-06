@@ -1,4 +1,8 @@
 eclipse.preferences.version=1
 encoding//utils/train_center_loss.py=utf8
+encoding/pred_test.py=utf8
+encoding/pred_test_center_loss.py=utf8
+encoding/pred_val.py=utf8
 encoding/train_crop.py=utf8
 encoding/train_crop_center_loss.py=utf8
+encoding/val_merge.py=utf8
