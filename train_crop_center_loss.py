@@ -132,6 +132,9 @@ resume = "/home/kohill/Desktop/tianchi/tianwen/output/xception_centerloss/weight
 model = xception(num_classes=4)
 
 model = torch.nn.DataParallel(model)
+logfile = 'output/xception_centerloss_lr/trainlog.log'
+trainlog(logfile)
+
 if resume:
     print('resuming finetune from %s'%resume)
     logging.info('resuming finetune from %s'%resume)
@@ -147,11 +150,9 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.5)
 
 
 
-save_dir = 'output/xception_centerloss/'
+save_dir = 'output/xception_centerloss_lr/'
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
-logfile = 'output/xception_centerloss/trainlog.log'
-trainlog(logfile)
 #############something for center loss
 nllloss = nn.NLLLoss().cuda()
 center_loss = CenterLoss(4,256,1.0).cuda()
